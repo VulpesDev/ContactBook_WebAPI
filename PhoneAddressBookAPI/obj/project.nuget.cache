@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "u/tXYisR2XsFhjtpJNfkVnB7u68BlOoplCUylIsuNk1E0VPWKoE4JpPuKn7xAFoh2I0/TWx5dKagkhhTM/TWRw==",
+  "dgSpecHash": "N302Kud7xtS+7wKxsyut48bhBILndV+AptvmjTlLrsW/HtLR6IUl7EUhYX8bfOl8JtGPPVfxkLRTerXCHZZaMQ==",
   "success": true,
-  "projectFilePath": "/sgoinfre/goinfre/Perso/tvasilev/PhoneAddressBookAPI/PhoneAddressBookAPI.csproj",
+  "projectFilePath": "/sgoinfre/goinfre/Perso/tvasilev/AppWork/PhoneAddressBookAPI/PhoneAddressBookAPI.csproj",
   "expectedPackageFiles": [
     "/home/tvasilev/.nuget/packages/bouncycastle.cryptography/2.2.1/bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "/home/tvasilev/.nuget/packages/google.protobuf/3.25.1/google.protobuf.3.25.1.nupkg.sha512",

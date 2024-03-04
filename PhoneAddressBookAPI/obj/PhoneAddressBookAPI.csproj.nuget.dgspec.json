@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/sgoinfre/goinfre/Perso/tvasilev/PhoneAddressBookAPI/PhoneAddressBookAPI.csproj": {}
+    "/sgoinfre/goinfre/Perso/tvasilev/AppWork/PhoneAddressBookAPI/PhoneAddressBookAPI.csproj": {}
   },
   "projects": {
-    "/sgoinfre/goinfre/Perso/tvasilev/PhoneAddressBookAPI/PhoneAddressBookAPI.csproj": {
+    "/sgoinfre/goinfre/Perso/tvasilev/AppWork/PhoneAddressBookAPI/PhoneAddressBookAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/sgoinfre/goinfre/Perso/tvasilev/PhoneAddressBookAPI/PhoneAddressBookAPI.csproj",
+        "projectUniqueName": "/sgoinfre/goinfre/Perso/tvasilev/AppWork/PhoneAddressBookAPI/PhoneAddressBookAPI.csproj",
         "projectName": "PhoneAddressBookAPI",
-        "projectPath": "/sgoinfre/goinfre/Perso/tvasilev/PhoneAddressBookAPI/PhoneAddressBookAPI.csproj",
+        "projectPath": "/sgoinfre/goinfre/Perso/tvasilev/AppWork/PhoneAddressBookAPI/PhoneAddressBookAPI.csproj",
         "packagesPath": "/home/tvasilev/.nuget/packages/",
-        "outputPath": "/sgoinfre/goinfre/Perso/tvasilev/PhoneAddressBookAPI/obj/",
+        "outputPath": "/sgoinfre/goinfre/Perso/tvasilev/AppWork/PhoneAddressBookAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/tvasilev/.nuget/NuGet/NuGet.Config"

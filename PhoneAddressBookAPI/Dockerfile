@@ -1,14 +1,15 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+# Start with the base .NET SDK image
+FROM mcr.microsoft.com/dotnet/sdk:7.0.406
+
+# Set the working directory in the container
 WORKDIR /app
 
-COPY *.csproj ./
-RUN dotnet restore
+# Copy all the project files to the container
+COPY . .
 
-COPY . ./
-RUN dotnet publish -c Release -o out
+# Expose the port your app runs on
+EXPOSE 5175
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
-WORKDIR /app
-COPY --from=build /app/out ./
+WORKDIR ./PhoneAddressBookAPI
 
-ENTRYPOINT ["dotnet", "PhoneAddressBookAPI.dll"]
+CMD ["dotnet", "run"]
