@@ -12,13 +12,11 @@ namespace PhoneAddressBookAPI.Data
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<PhoneNumber> PhoneNumbers { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<List<string>>().HasNoKey(); // Define List<string> as keyless entity type
+        // protected override void OnModelCreating(ModelBuilder modelBuilder)
+        // {
+        //     modelBuilder.Entity<List<string>>().HasNoKey();
 
-            // Your other entity configurations here...
-
-            base.OnModelCreating(modelBuilder);
-        }
+        //     base.OnModelCreating(modelBuilder);
+        // }
     }
 }
