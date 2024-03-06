@@ -42,6 +42,10 @@
               "target": "Package",
               "version": "[7.0.16, )"
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.2, )"
+            },
             "MySql.Data": {
               "target": "Package",
               "version": "[8.3.0, )"
@@ -53,6 +57,10 @@
             "MySqlConnector.DependencyInjection": {
               "target": "Package",
               "version": "[2.3.5, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

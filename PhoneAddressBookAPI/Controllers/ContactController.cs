@@ -1,28 +1,29 @@
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using PhoneAddressBookAPI.Data;
 using PhoneAddressBookAPI.Models;
 
-namespace PhoneAddressBookAPI.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-public class ContactController : ControllerBase
+namespace PhoneAddressBookAPI.Controllers
 {
-    private readonly ILogger<ContactController> _logger;
-
-    public ContactController(ILogger<ContactController> logger)
+    [ApiController]
+    [Route("[controller]")]
+    public class ContactController : ControllerBase
     {
-        _logger = logger;
-    }
+        private readonly ILogger<ContactController> _logger;
+        private readonly ContactDbContext _context;
 
-    [HttpGet(Name = "GetContact")]
-    public Contact Get()
-    {
-        return new Contact {
-            Id = 0,
-            FullName = "Peter Peterson",
-            HomeAddress = "Schoneweide str. 32",
-            BusinessAddress = "Harzer str. 11",
-            PhoneNumbers = new List<string> {"359-111-232", "49-222-111"}
-        };
+        public ContactController(ILogger<ContactController> logger, ContactDbContext context)
+        {
+            _logger = logger;
+            _context = context;
+        }
+
+        [HttpGet(Name = "GetContact")]
+        public IEnumerable<Contact> Get()
+        {
+            return _context.Contacts.ToList();
+        }
     }
 }

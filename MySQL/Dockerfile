@@ -8,8 +8,10 @@ ENV MYSQL_DATABASE=PhoneAddressData
 # Copy the SQL script to initialize the database
 COPY ./MySQL/create_database.sql /create_database.sql
 COPY ./MySQL/run_sql.sh /run_sql.sh
+# COPY ./MySQL/custom_my.cnf /etc/mysql/my.cnf
 
 # Expose port 3306 to the outside world
 EXPOSE 3306
 
-
+# Specify the --init-file option in the entrypoint command
+CMD ["--init-file=/create_database.sql"]
