@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "N302Kud7xtS+7wKxsyut48bhBILndV+AptvmjTlLrsW/HtLR6IUl7EUhYX8bfOl8JtGPPVfxkLRTerXCHZZaMQ==",
+  "dgSpecHash": "+CSu9M5P3jJDeDjJlAobqRmd/96Up84tHvHsdstdxmVF0GSvudlqtzOGj8PDzND9ywtuc2Mf5ChRDx0C9hLavA==",
   "success": true,
   "projectFilePath": "/sgoinfre/goinfre/Perso/tvasilev/AppWork/PhoneAddressBookAPI/PhoneAddressBookAPI.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "/home/tvasilev/.nuget/packages/k4os.hash.xxhash/1.0.8/k4os.hash.xxhash.1.0.8.nupkg.sha512",
     "/home/tvasilev/.nuget/packages/microsoft.aspnetcore.openapi/7.0.16/microsoft.aspnetcore.openapi.7.0.16.nupkg.sha512",
     "/home/tvasilev/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/home/tvasilev/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "/home/tvasilev/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.1/microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
     "/home/tvasilev/.nuget/packages/microsoft.netcore.platforms/3.1.0/microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "/home/tvasilev/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",
@@ -18,6 +19,7 @@
     "/home/tvasilev/.nuget/packages/microsoft.win32.systemevents/4.7.0/microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "/home/tvasilev/.nuget/packages/mysql.data/8.3.0/mysql.data.8.3.0.nupkg.sha512",
     "/home/tvasilev/.nuget/packages/mysqlconnector/2.3.5/mysqlconnector.2.3.5.nupkg.sha512",
+    "/home/tvasilev/.nuget/packages/mysqlconnector.dependencyinjection/2.3.5/mysqlconnector.dependencyinjection.2.3.5.nupkg.sha512",
     "/home/tvasilev/.nuget/packages/swashbuckle.aspnetcore/6.5.0/swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "/home/tvasilev/.nuget/packages/swashbuckle.aspnetcore.swagger/6.5.0/swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "/home/tvasilev/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.5.0/swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",

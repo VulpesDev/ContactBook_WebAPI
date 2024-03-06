@@ -2,14 +2,14 @@ version: '3.8'
 
 services:
   mysql:
-    image: mysql:latest
+    build:
+      context: .
+      dockerfile: ./MySQL/Dockerfile
     ports:
       - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root1234!
-      MYSQL_DATABASE: PhoneAddressData
     volumes:
       - mysql_data:/var/lib/mysql
+    command: ["/run_sql.sh", "&"]
     networks:
       - database-net
 
@@ -26,6 +26,11 @@ services:
 
 volumes:
   mysql_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./MySQL/data
 
 networks:
   database-net:

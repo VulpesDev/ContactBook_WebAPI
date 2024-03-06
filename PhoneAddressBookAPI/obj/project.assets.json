@@ -102,6 +102,22 @@
           "buildMultiTargeting/Microsoft.Extensions.ApiDescription.Server.targets": {}
         }
       },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
       "Microsoft.Extensions.Logging.Abstractions/7.0.1": {
         "type": "package",
         "compile": {
@@ -233,6 +249,23 @@
         },
         "runtime": {
           "lib/net7.0/MySqlConnector.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "MySqlConnector.DependencyInjection/2.3.5": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "MySqlConnector": "2.3.5"
+        },
+        "compile": {
+          "lib/net7.0/MySqlConnector.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/MySqlConnector.DependencyInjection.dll": {
             "related": ".xml"
           }
         }
@@ -1029,6 +1062,38 @@
         "tools/netcoreapp2.1/System.Diagnostics.DiagnosticSource.dll"
       ]
     },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {
+      "sha512": "cjWrLkJXK0rs4zofsK4bSdg+jhDLTaxrkXu4gS6Y7MAlCvRyNNgwY/lJi5RDlQOnSZweHqoyvgvbdvQsRIW+hg==",
+      "type": "package",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.DependencyInjection.Abstractions.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.Abstractions.targets",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.abstractions.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "Microsoft.Extensions.Logging.Abstractions/7.0.1": {
       "sha512": "pkeBFx0vqMW/A3aUVHh7MPu3WkBhaVlezhSZeb1c9XD0vUReYH1TLFSy5MxJgZfmz5LZzYoErMorlYZiwpOoNA==",
       "type": "package",
@@ -1233,6 +1298,23 @@
         "logo.png",
         "mysqlconnector.2.3.5.nupkg.sha512",
         "mysqlconnector.nuspec"
+      ]
+    },
+    "MySqlConnector.DependencyInjection/2.3.5": {
+      "sha512": "DZ8cSOWyA/OH0T2CCV7L7Cq3ns8KDDQPgGYH8L7322096ACjsmjkb5+aRmZ3ZSvL7dbCtizpi6KqVpafRxrKRg==",
+      "type": "package",
+      "path": "mysqlconnector.dependencyinjection/2.3.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net7.0/MySqlConnector.DependencyInjection.dll",
+        "lib/net7.0/MySqlConnector.DependencyInjection.xml",
+        "lib/netstandard2.0/MySqlConnector.DependencyInjection.dll",
+        "lib/netstandard2.0/MySqlConnector.DependencyInjection.xml",
+        "logo.png",
+        "mysqlconnector.dependencyinjection.2.3.5.nupkg.sha512",
+        "mysqlconnector.dependencyinjection.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore/6.5.0": {
@@ -2372,6 +2454,7 @@
       "Microsoft.AspNetCore.OpenApi >= 7.0.16",
       "MySql.Data >= 8.3.0",
       "MySqlConnector >= 2.3.5",
+      "MySqlConnector.DependencyInjection >= 2.3.5",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
   },
@@ -2421,6 +2504,10 @@
             "version": "[8.3.0, )"
           },
           "MySqlConnector": {
+            "target": "Package",
+            "version": "[2.3.5, )"
+          },
+          "MySqlConnector.DependencyInjection": {
             "target": "Package",
             "version": "[2.3.5, )"
           },
