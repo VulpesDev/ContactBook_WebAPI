@@ -27,12 +27,29 @@ namespace PhoneAddressBookAPI.Controllers
         [HttpGet(Name = "GetContact")]
         public ActionResult<string> Get()
         {
-            var contacts = _context.Contacts.ToList();
+            var contacts = _context.Contacts
+                .Include(c => c.ContactAddresses)
+                    .ThenInclude(ca => ca.Address)
+                        .ThenInclude(a => a.PhoneNumbers)
+                .ToList();
+
             var response = new StringBuilder();
             foreach (var contact in contacts)
             {
                 response.AppendLine("----------------------");
                 response.AppendLine($"Name: {contact.FullName}");
+
+                foreach (var contactAddress in contact.ContactAddresses)
+                {
+                    var address = contactAddress.Address;
+                    response.AppendLine($"{(address.IsBusinessAddress ? "Office Address" : "Home Address")}: {address.Addr}");
+
+                    foreach (var phoneNumber in address.PhoneNumbers)
+                    {
+                        response.AppendLine($"Tel: {phoneNumber.PhoneNumber}");
+                    }
+                }
+
                 response.AppendLine("----------------------");
             }
 

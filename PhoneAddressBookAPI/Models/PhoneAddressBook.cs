@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,6 +11,8 @@ namespace PhoneAddressBookAPI.Models
         public int Id { get; set; }
 
         public string FullName { get; set; } = string.Empty;
+
+        public ICollection<ContactAddresses> ContactAddresses { get; set; } = new List<ContactAddresses>();
     }
 
     public class Addresses
@@ -20,6 +23,8 @@ namespace PhoneAddressBookAPI.Models
 
         public string Addr { get; set; } = string.Empty;
         public bool IsBusinessAddress { get; set; }
+
+        public ICollection<PhoneNum> PhoneNumbers { get; set; } = new List<PhoneNum>();
     }
 
     public class ContactAddresses
@@ -30,10 +35,11 @@ namespace PhoneAddressBookAPI.Models
 
         [ForeignKey("Contacts")]
         public int ContactId { get; set; }
+        public Contacts Contact { get; set; }
 
         [ForeignKey("Addresses")]
         public int AddressId { get; set; }
-
+        public Addresses Address { get; set; }
     }
 
     public class PhoneNum
@@ -46,5 +52,6 @@ namespace PhoneAddressBookAPI.Models
 
         [ForeignKey("Addresses")]
         public int AddressId { get; set; }
+        public Addresses Address { get; set; }
     }
 }

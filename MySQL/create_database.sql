@@ -18,9 +18,10 @@ CREATE TABLE IF NOT EXISTS Addresses (
 
 -- Junction table
 CREATE TABLE IF NOT EXISTS ContactAddresses (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
     ContactId INT NOT NULL,
     AddressId INT NOT NULL,
-    PRIMARY KEY (ContactId, AddressId),
+    CONSTRAINT UC_ContactId_AddressId UNIQUE (ContactId, AddressId),
     FOREIGN KEY (ContactId) REFERENCES Contacts(Id),
     FOREIGN KEY (AddressId) REFERENCES Addresses(Id)
 );
