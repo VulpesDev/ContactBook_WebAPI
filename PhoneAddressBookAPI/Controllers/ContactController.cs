@@ -27,47 +27,44 @@ namespace PhoneAddressBookAPI.Controllers
         [HttpGet(Name = "GetContact")]
         public ActionResult<string> Get()
         {
-            var contacts = _context.Contacts.Include(c => c.PhoneNumbers).ToList();
+            var contacts = _context.Contacts.ToList();
             var response = new StringBuilder();
             foreach (var contact in contacts)
             {
                 response.AppendLine("----------------------");
                 response.AppendLine($"Name: {contact.FullName}");
-                response.AppendLine($"Office Address: {contact.BusinessAddress}");
-                foreach (var phone in contact.PhoneNumbers)
-                    response.AppendLine($"Tel: {phone.PhoneNumber}");
-                response.AppendLine($"Home Address: {contact.HomeAddress}");
+                response.AppendLine("----------------------");
             }
 
             return Ok(response.ToString());
         }
 
-        [HttpPost]
-        public IActionResult Post(Contact contact)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            _context.Contacts.Add(contact);
-            _context.SaveChanges();
+        // [HttpPost]
+        // public IActionResult Post(Contacts contact)
+        // {
+        //     if (!ModelState.IsValid)
+        //     {
+        //         return BadRequest(ModelState);
+        //     }
+        //     _context.Contacts.Add(contact);
+        //     _context.SaveChanges();
 
-            return CreatedAtRoute("GetContact", new { id = contact.Id }, contact);
-        }
+        //     return CreatedAtRoute("GetContact", new { id = contact.Id }, contact);
+        // }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var contact = _context.Contacts.Include(c => c.PhoneNumbers).FirstOrDefault(c => c.Id == id);
-            if (contact == null)
-            {
-                return NotFound();
-            }
-            _context.PhoneNumbers.RemoveRange(contact.PhoneNumbers);
-            _context.Contacts.Remove(contact);
-            _context.SaveChanges();
+        // [HttpDelete("{id}")]
+        // public IActionResult Delete(int id)
+        // {
+        //     var contact = _context.Contacts.Include(c => c.PhoneNumbers).FirstOrDefault(c => c.Id == id);
+        //     if (contact == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     _context.PhoneNumbers.RemoveRange(contact.PhoneNumbers);
+        //     _context.Contacts.Remove(contact);
+        //     _context.SaveChanges();
 
-            return NoContent();
-        }
+        //     return NoContent();
+        // }
     }
 }

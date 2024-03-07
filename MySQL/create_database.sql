@@ -7,7 +7,7 @@ USE PhoneAddressData;
 -- Check if the Contacts table exists before creating it
 CREATE TABLE IF NOT EXISTS Contacts (
     Id INT AUTO_INCREMENT PRIMARY KEY,
-    FullName VARCHAR(255) NOT NULL
+    FullName VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS Addresses (
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS ContactAddresses (
 );
 
 -- Check if the PhoneNumbers table exists before creating it
-CREATE TABLE IF NOT EXISTS PhoneNumbers (
+CREATE TABLE IF NOT EXISTS PhoneNum (
     PhoneNumberId INT AUTO_INCREMENT PRIMARY KEY,
     AddressId INT NOT NULL,
     PhoneNumber VARCHAR(20) NOT NULL,
@@ -57,7 +57,7 @@ INSERT IGNORE INTO ContactAddresses (ContactId, AddressId) VALUES
 (3, 5),
 (3, 6);
 
-INSERT IGNORE INTO PhoneNumbers (AddressId, PhoneNumber) VALUES
+INSERT IGNORE INTO PhoneNum (AddressId, PhoneNumber) VALUES
 (1, '+49 123 456789'),
 (1, '+49 987 654321'),
 (2, '+49 111 222333');

@@ -9,8 +9,10 @@ namespace PhoneAddressBookAPI.Data
         {
         }
 
-        public DbSet<Contact> Contacts { get; set; }
-        public DbSet<PhoneNum> PhoneNumbers { get; set; }
+        public DbSet<Contacts> Contacts { get; set; }
+        public DbSet<Addresses> Addresses { get; set; }
+        public DbSet<ContactAddresses> ContactAddresses { get; set; }
+        public DbSet<PhoneNum> PhoneNum { get; set; }
 
         // protected override void OnModelCreating(ModelBuilder modelBuilder)
         // {
