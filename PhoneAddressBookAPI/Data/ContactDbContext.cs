@@ -10,7 +10,7 @@ namespace PhoneAddressBookAPI.Data
         }
 
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<PhoneNumber> PhoneNumbers { get; set; }
+        public DbSet<PhoneNum> PhoneNumbers { get; set; }
 
         // protected override void OnModelCreating(ModelBuilder modelBuilder)
         // {

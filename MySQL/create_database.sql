@@ -7,31 +7,57 @@ USE PhoneAddressData;
 -- Check if the Contacts table exists before creating it
 CREATE TABLE IF NOT EXISTS Contacts (
     Id INT AUTO_INCREMENT PRIMARY KEY,
-    FullName VARCHAR(255) NOT NULL,
-    HomeAddress VARCHAR(255) NOT NULL,
-    BusinessAddress VARCHAR(255) NOT NULL,
-    -- Add a unique constraint to prevent duplicate FullName values
-    CONSTRAINT UC_FullName UNIQUE (FullName)
+    FullName VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Addresses (
+    Id INT AUTO_INCREMENT PRIMARY KEY,
+    Addr VARCHAR(255) NOT NULL,
+    IsBusinessAddress BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+-- Junction table
+CREATE TABLE IF NOT EXISTS ContactAddresses (
+    ContactId INT NOT NULL,
+    AddressId INT NOT NULL,
+    PRIMARY KEY (ContactId, AddressId),
+    FOREIGN KEY (ContactId) REFERENCES Contacts(Id),
+    FOREIGN KEY (AddressId) REFERENCES Addresses(Id)
 );
 
 -- Check if the PhoneNumbers table exists before creating it
 CREATE TABLE IF NOT EXISTS PhoneNumbers (
     PhoneNumberId INT AUTO_INCREMENT PRIMARY KEY,
-    ContactId INT NOT NULL,
+    AddressId INT NOT NULL,
     PhoneNumber VARCHAR(20) NOT NULL,
-    -- Add a unique constraint to prevent duplicate PhoneNumber values for each ContactId
-    CONSTRAINT UC_ContactId_PhoneNumber UNIQUE (ContactId, PhoneNumber),
-    FOREIGN KEY (ContactId) REFERENCES Contacts(Id)
+    -- Add a unique constraint to prevent duplicate PhoneNumber values for each AddressId
+    CONSTRAINT UC_AddressId_PhoneNumber UNIQUE (AddressId, PhoneNumber),
+    FOREIGN KEY (AddressId) REFERENCES Addresses(Id)
 );
 
 
--- Insert data into tables if they're empty
-INSERT IGNORE INTO Contacts (FullName, HomeAddress, BusinessAddress) VALUES
-('Hans Muller', 'Hauptstrase 1', 'Geschaftsstrase 2'),
-('Anna Schmidt', 'Nebenstrase 3', 'Einkaufsstrase 4'),
-('Thomas Fischer', 'Am Park 5', 'Industriestrase 6');
+INSERT IGNORE INTO Addresses (Addr, IsBusinessAddress) VALUES
+('Hauptstrase 1', FALSE),
+('Geschaftsstrase 2', TRUE),
+('Nebenstrase 3', FALSE),
+('Einkaufsstrase 4', TRUE),
+('Am Park 5', FALSE),
+('Industriestrase 6', TRUE);
 
-INSERT IGNORE INTO PhoneNumbers (ContactId, PhoneNumber) VALUES
+INSERT IGNORE INTO Contacts (FullName) VALUES
+('Hans Muller'),
+('Anna Schmidt'),
+('Thomas Fischer');
+
+INSERT IGNORE INTO ContactAddresses (ContactId, AddressId) VALUES
+(1, 1),
+(1, 2),
+(2, 3),
+(2, 4),
+(3, 5),
+(3, 6);
+
+INSERT IGNORE INTO PhoneNumbers (AddressId, PhoneNumber) VALUES
 (1, '+49 123 456789'),
 (1, '+49 987 654321'),
 (2, '+49 111 222333');
