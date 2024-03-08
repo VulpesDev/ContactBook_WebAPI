@@ -27,6 +27,7 @@ namespace PhoneAddressBookAPI.Models
         public ICollection<PhoneNum> PhoneNumbers { get; set; } = new List<PhoneNum>();
     }
 
+    //Junction table
     public class ContactAddresses
     {
         [Key]

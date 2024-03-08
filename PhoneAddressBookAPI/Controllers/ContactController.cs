@@ -47,28 +47,23 @@ namespace PhoneAddressBookAPI.Controllers
                         .ThenInclude(a => a.PhoneNumbers)
                 .ToList();
 
+            //Build a formated response
             var response = new StringBuilder();
             foreach (var contact in contacts)
             {
                 response.AppendLine("----------------------");
                 response.AppendLine($"Id: {contact.Id}");
-
                 response.AppendLine($"Name: {contact.FullName}");
 
                 foreach (var contactAddress in contact.ContactAddresses)
                 {
                     var address = contactAddress.Address;
                     response.AppendLine($"{(address.IsBusinessAddress ? "Office Address" : "Home Address")}: {address.Addr}");
-
                     foreach (var phoneNumber in address.PhoneNumbers)
-                    {
                         response.AppendLine($"Tel: {phoneNumber.PhoneNumber}");
-                    }
                 }
-
                 response.AppendLine("----------------------");
             }
-
             return Ok(response.ToString());
         }
 
@@ -76,12 +71,11 @@ namespace PhoneAddressBookAPI.Controllers
         public async Task<IActionResult> CreateContact([FromBody] ContactViewModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
         
             var contact = new Contacts { FullName = model.FullName };
             _context.Contacts.Add(contact);
+
             foreach (var addressModel in model.Addresses)
             {
                 var address = new Addresses { Addr = addressModel.Addr, IsBusinessAddress = addressModel.IsBusinessAddress };
@@ -100,12 +94,12 @@ namespace PhoneAddressBookAPI.Controllers
                     ContactId = contact.Id,
                     AddressId = address.Id
                 };
+
                 _context.ContactAddresses.Add(contactAddress);
                 contact.ContactAddresses.Add(contactAddress);
                 await _context.SaveChangesAsync();
             }
             await _context.SaveChangesAsync();
-
             return Ok("Contact created successfully");
         }
 
@@ -113,9 +107,7 @@ namespace PhoneAddressBookAPI.Controllers
         public async Task<IActionResult> UpdateContact(int id, [FromBody] ContactViewModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var existingContact = await _context.Contacts
                 .Include(c => c.ContactAddresses)
@@ -123,9 +115,7 @@ namespace PhoneAddressBookAPI.Controllers
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (existingContact == null)
-            {
                 return NotFound();
-            }
 
             existingContact.FullName = model.FullName;
 
@@ -155,9 +145,7 @@ namespace PhoneAddressBookAPI.Controllers
             var contact = await _context.Contacts.FindAsync(id);
 
             if (contact == null)
-            {
                 return NotFound();
-            }
 
             var contactAddresses = await _context.ContactAddresses.Where(ca => ca.ContactId == id).ToListAsync();
             _context.ContactAddresses.RemoveRange(contactAddresses);

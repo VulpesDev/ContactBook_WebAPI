@@ -7,4 +7,4 @@ sleep 10
 
 echo "Creating sample database and tables."
 # Execute the SQL script using the MySQL command-line client
-mysql -proot1234! < /create_database.sql
+mysql -p"$MYSQL_ROOT_PASSWORD" < /create_database.sql

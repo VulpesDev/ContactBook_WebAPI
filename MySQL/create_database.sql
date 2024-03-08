@@ -1,10 +1,7 @@
--- Check if the database exists before creating it
 CREATE DATABASE IF NOT EXISTS PhoneAddressData;
 
--- Use the PhoneAddressData database
 USE PhoneAddressData;
 
--- Check if the Contacts table exists before creating it
 CREATE TABLE IF NOT EXISTS Contacts (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     FullName VARCHAR(255) NOT NULL UNIQUE
@@ -26,12 +23,10 @@ CREATE TABLE IF NOT EXISTS ContactAddresses (
     FOREIGN KEY (AddressId) REFERENCES Addresses(Id)
 );
 
--- Check if the PhoneNumbers table exists before creating it
 CREATE TABLE IF NOT EXISTS PhoneNum (
     PhoneNumberId INT AUTO_INCREMENT PRIMARY KEY,
     AddressId INT NOT NULL,
     PhoneNumber VARCHAR(20) NOT NULL,
-    -- Add a unique constraint to prevent duplicate PhoneNumber values for each AddressId
     CONSTRAINT UC_AddressId_PhoneNumber UNIQUE (AddressId, PhoneNumber),
     FOREIGN KEY (AddressId) REFERENCES Addresses(Id)
 );
