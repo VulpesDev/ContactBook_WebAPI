@@ -13,17 +13,30 @@ using PhoneAddressBookAPI.DTOs;
 
 namespace PhoneAddressBookAPI.Controllers
 {
+    // public class ContactViewModel
+    // {
+    //     public string FullName { get; set; }
+    //     public AddressViewModel Address { get; set; }
+    //     public string PhoneNumber { get; set; }
+    // }
+
+    // public class AddressViewModel
+    // {
+    //     public string Addr { get; set; }
+    //     public bool IsBusinessAddress { get; set; }
+    // }
+
     public class ContactViewModel
     {
         public string FullName { get; set; }
-        public AddressViewModel Address { get; set; }
-        public string PhoneNumber { get; set; }
+        public List<AddressViewModel> Addresses { get; set; } = new List<AddressViewModel>();
     }
 
     public class AddressViewModel
     {
         public string Addr { get; set; }
         public bool IsBusinessAddress { get; set; }
+        public List<string> PhoneNumbers { get; set; } = new List<string>();
     }
 
     
@@ -82,59 +95,32 @@ namespace PhoneAddressBookAPI.Controllers
             }
         
             var contact = new Contacts { FullName = model.FullName };
-            var address = new Addresses { Addr = model.Address.Addr, IsBusinessAddress = model.Address.IsBusinessAddress };
-            
             _context.Contacts.Add(contact);
-            _context.Addresses.Add(address);
-            
-            await _context.SaveChangesAsync(); // Save changes to the database to obtain Ids
-            
-            var contactAddress = new ContactAddresses 
+            foreach (var addressModel in model.Addresses)
             {
-                ContactId = contact.Id, // Assuming contact has been added to the database and has an assigned Id
-                AddressId = address.Id // Assuming address has been added to the database and has an assigned Id
-            };
+                var address = new Addresses { Addr = addressModel.Addr, IsBusinessAddress = addressModel.IsBusinessAddress };
+                foreach (var phoneNumber in addressModel.PhoneNumbers)
+                {
+                    var phone = new PhoneNum { PhoneNumber = phoneNumber };
+                    _context.PhoneNum.Add(phone);
+                    address.PhoneNumbers.Add(phone);
+                }
+                _context.Addresses.Add(address);
 
-            _context.ContactAddresses.Add(contactAddress);
-            
+                await _context.SaveChangesAsync();
+
+                var contactAddress = new ContactAddresses 
+                {
+                    ContactId = contact.Id,
+                    AddressId = address.Id
+                };
+                _context.ContactAddresses.Add(contactAddress);
+                contact.ContactAddresses.Add(contactAddress);
+                await _context.SaveChangesAsync();
+            }
             await _context.SaveChangesAsync();
-            var phone = new PhoneNum { PhoneNumber = model.PhoneNumber, AddressId = address.Id }; // Assign AddressId
-            _context.PhoneNum.Add(phone);
-            // Save changes to the database
-            await _context.SaveChangesAsync();
-            
+
             return Ok("Contact created successfully");
-            
         }
-
-
-
-        // [HttpPost]
-        // public IActionResult Post(Contacts contact)
-        // {
-        //     if (!ModelState.IsValid)
-        //     {
-        //         return BadRequest(ModelState);
-        //     }
-        //     _context.Contacts.Add(contact);
-        //     _context.SaveChanges();
-
-        //     return CreatedAtRoute("GetContact", new { id = contact.Id }, contact);
-        // }
-
-        // [HttpDelete("{id}")]
-        // public IActionResult Delete(int id)
-        // {
-        //     var contact = _context.Contacts.Include(c => c.PhoneNumbers).FirstOrDefault(c => c.Id == id);
-        //     if (contact == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     _context.PhoneNumbers.RemoveRange(contact.PhoneNumbers);
-        //     _context.Contacts.Remove(contact);
-        //     _context.SaveChanges();
-
-        //     return NoContent();
-        // }
     }
 }
