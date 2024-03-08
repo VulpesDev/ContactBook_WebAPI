@@ -23,3 +23,8 @@ The Phone Address Book API is a RESTful web service for managing contacts and th
 - MySQL
 - Swagger UI
 
+## Installation 
+
+```
+git clone https://github.com/VulpesDev/ContactBook_WebAPI ~/ContactBook_WebAPI && cd ~/ContactBook_WebAPI && docker-compose up --build
+```
