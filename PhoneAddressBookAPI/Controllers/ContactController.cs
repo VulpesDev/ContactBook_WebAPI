@@ -13,18 +13,6 @@ using PhoneAddressBookAPI.DTOs;
 
 namespace PhoneAddressBookAPI.Controllers
 {
-    // public class ContactViewModel
-    // {
-    //     public string FullName { get; set; }
-    //     public AddressViewModel Address { get; set; }
-    //     public string PhoneNumber { get; set; }
-    // }
-
-    // public class AddressViewModel
-    // {
-    //     public string Addr { get; set; }
-    //     public bool IsBusinessAddress { get; set; }
-    // }
 
     public class ContactViewModel
     {
@@ -86,7 +74,7 @@ namespace PhoneAddressBookAPI.Controllers
             return Ok(response.ToString());
         }
 
-        [HttpPost]
+        [HttpPost(Name = "PostContact")]
         public async Task<IActionResult> CreateContact([FromBody] ContactViewModel model)
         {
             if (!ModelState.IsValid)
@@ -121,6 +109,27 @@ namespace PhoneAddressBookAPI.Controllers
             await _context.SaveChangesAsync();
 
             return Ok("Contact created successfully");
+        }
+
+        [HttpDelete(Name ="{id}")]
+        public async Task<IActionResult> DeleteContact(int id)
+        {
+            var contact = await _context.Contacts.FindAsync(id);
+
+            if (contact == null)
+            {
+                return NotFound(); // Return 404 Not Found if the contact with the specified ID doesn't exist
+            }
+
+            // Find all contact addresses associated with this contact and remove them
+            var contactAddresses = await _context.ContactAddresses.Where(ca => ca.ContactId == id).ToListAsync();
+            _context.ContactAddresses.RemoveRange(contactAddresses);
+
+            _context.Contacts.Remove(contact); // Mark the contact entity for deletion
+
+            await _context.SaveChangesAsync(); // Save changes to delete the contact and its related contact addresses from the database
+
+            return Ok("Contact deleted successfully");
         }
     }
 }
