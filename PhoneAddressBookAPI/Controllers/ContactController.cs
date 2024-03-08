@@ -6,10 +6,6 @@ using PhoneAddressBookAPI.Data;
 using PhoneAddressBookAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
-using PhoneAddressBookAPI.DTOs;
-
-
-
 
 namespace PhoneAddressBookAPI.Controllers
 {
@@ -55,6 +51,8 @@ namespace PhoneAddressBookAPI.Controllers
             foreach (var contact in contacts)
             {
                 response.AppendLine("----------------------");
+                response.AppendLine($"Id: {contact.Id}");
+
                 response.AppendLine($"Name: {contact.FullName}");
 
                 foreach (var contactAddress in contact.ContactAddresses)
@@ -111,6 +109,46 @@ namespace PhoneAddressBookAPI.Controllers
             return Ok("Contact created successfully");
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateContact(int id, [FromBody] ContactViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var existingContact = await _context.Contacts
+                .Include(c => c.ContactAddresses)
+                .ThenInclude(ca => ca.Address)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (existingContact == null)
+            {
+                return NotFound();
+            }
+
+            existingContact.FullName = model.FullName;
+
+            _context.ContactAddresses.RemoveRange(existingContact.ContactAddresses);
+
+            foreach (var addressModel in model.Addresses)
+            {
+                var address = new Addresses { Addr = addressModel.Addr, IsBusinessAddress = addressModel.IsBusinessAddress };
+                foreach (var phoneNumber in addressModel.PhoneNumbers)
+                {
+                    var phone = new PhoneNum { PhoneNumber = phoneNumber };
+                    _context.PhoneNum.Add(phone);
+                    address.PhoneNumbers.Add(phone);
+                }
+                existingContact.ContactAddresses.Add(new ContactAddresses { Address = address });
+                _context.Addresses.Add(address);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok("Contact updated successfully");
+        }
+
         [HttpDelete(Name ="{id}")]
         public async Task<IActionResult> DeleteContact(int id)
         {
@@ -118,16 +156,15 @@ namespace PhoneAddressBookAPI.Controllers
 
             if (contact == null)
             {
-                return NotFound(); // Return 404 Not Found if the contact with the specified ID doesn't exist
+                return NotFound();
             }
 
-            // Find all contact addresses associated with this contact and remove them
             var contactAddresses = await _context.ContactAddresses.Where(ca => ca.ContactId == id).ToListAsync();
             _context.ContactAddresses.RemoveRange(contactAddresses);
 
-            _context.Contacts.Remove(contact); // Mark the contact entity for deletion
+            _context.Contacts.Remove(contact);
 
-            await _context.SaveChangesAsync(); // Save changes to delete the contact and its related contact addresses from the database
+            await _context.SaveChangesAsync();
 
             return Ok("Contact deleted successfully");
         }
