@@ -7,7 +7,7 @@ git clone https://github.com/VulpesDev/ContactBook_WebAPI ~/ContactBook_WebAPI &
 ```
 ## Description
 
-The Phone Address Book API is a RESTful web service for managing contacts and their addresses. It provides endpoints for creating, reading, updating, and deleting contacts, as well as searching for contacts by name and filtering contacts by address.
+The Phone Address Book API is a RESTful web service for managing contacts and their addresses. It provides endpoints for creating, reading, updating, and deleting contacts, as well as searching for contacts by name.
 
 ![Phone Address Book API Logo](img/ShowCase.png)
 
