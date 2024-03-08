@@ -12,13 +12,13 @@ namespace PhoneAddressBookAPI.Controllers
 
     public class ContactViewModel
     {
-        public string FullName { get; set; }
+        public string FullName { get; set; } = string.Empty;
         public List<AddressViewModel> Addresses { get; set; } = new List<AddressViewModel>();
     }
 
     public class AddressViewModel
     {
-        public string Addr { get; set; }
+        public string Addr { get; set; } = string.Empty;
         public bool IsBusinessAddress { get; set; }
         public List<string> PhoneNumbers { get; set; } = new List<string>();
     }
@@ -39,15 +39,26 @@ namespace PhoneAddressBookAPI.Controllers
         }
 
         [HttpGet(Name = "GetContact")]
-        public ActionResult<string> Get()
+        public ActionResult<string> Get(string? SearchByName = null)
         {
-            var contacts = _context.Contacts
+            var contactsQuery = _context.Contacts
                 .Include(c => c.ContactAddresses)
                     .ThenInclude(ca => ca.Address)
                         .ThenInclude(a => a.PhoneNumbers)
-                .ToList();
+                .AsQueryable();
 
-            //Build a formated response
+            var addressesQuery = _context.Addresses
+                .Include(a => a.PhoneNumbers)
+                    .AsQueryable();
+
+
+            if (!string.IsNullOrEmpty(SearchByName))
+                contactsQuery = contactsQuery.Where(c => c.FullName.Contains(SearchByName));
+
+
+            var contacts = contactsQuery.ToList();
+
+            // Build a formatted response
             var response = new StringBuilder();
             foreach (var contact in contacts)
             {
@@ -64,6 +75,7 @@ namespace PhoneAddressBookAPI.Controllers
                 }
                 response.AppendLine("----------------------");
             }
+
             return Ok(response.ToString());
         }
 

@@ -22,7 +22,7 @@ namespace PhoneAddressBookAPI.Models
         public int Id { get; set; }
 
         public string Addr { get; set; } = string.Empty;
-        public bool IsBusinessAddress { get; set; }
+        public bool IsBusinessAddress { get; set; } = false;
 
         public ICollection<PhoneNum> PhoneNumbers { get; set; } = new List<PhoneNum>();
     }
@@ -36,11 +36,11 @@ namespace PhoneAddressBookAPI.Models
 
         [ForeignKey("Contacts")]
         public int ContactId { get; set; }
-        public Contacts Contact { get; set; }
+        public Contacts? Contact { get; set; }
 
         [ForeignKey("Addresses")]
         public int AddressId { get; set; }
-        public Addresses Address { get; set; }
+        public Addresses? Address { get; set; }
     }
 
     public class PhoneNum
@@ -53,6 +53,6 @@ namespace PhoneAddressBookAPI.Models
 
         [ForeignKey("Addresses")]
         public int AddressId { get; set; }
-        public Addresses Address { get; set; }
+        public Addresses? Address { get; set; }
     }
 }
