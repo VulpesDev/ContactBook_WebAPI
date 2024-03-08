@@ -18,7 +18,6 @@ The Phone Address Book API is a RESTful web service for managing contacts and th
 - Update existing contacts
 - Delete contacts and associated addresses
 - Search for contacts by name
-- Filter contacts by address
 
 ## Technologies Used
 
