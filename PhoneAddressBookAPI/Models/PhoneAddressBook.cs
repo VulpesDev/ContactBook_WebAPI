@@ -11,7 +11,7 @@ namespace PhoneAddressBookAPI.Models
         public int Id { get; set; }
 
         public string FullName { get; set; } = string.Empty;
-
+        
         public ICollection<ContactAddresses> ContactAddresses { get; set; } = new List<ContactAddresses>();
     }
 

@@ -13,12 +13,5 @@ namespace PhoneAddressBookAPI.Data
         public DbSet<Addresses> Addresses { get; set; }
         public DbSet<ContactAddresses> ContactAddresses { get; set; }
         public DbSet<PhoneNum> PhoneNum { get; set; }
-
-        // protected override void OnModelCreating(ModelBuilder modelBuilder)
-        // {
-        //     modelBuilder.Entity<List<string>>().HasNoKey();
-
-        //     base.OnModelCreating(modelBuilder);
-        // }
     }
 }

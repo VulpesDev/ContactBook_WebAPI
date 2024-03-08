@@ -6,11 +6,28 @@ using PhoneAddressBookAPI.Data;
 using PhoneAddressBookAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
+using PhoneAddressBookAPI.DTOs;
+
 
 
 
 namespace PhoneAddressBookAPI.Controllers
 {
+    public class ContactViewModel
+    {
+        public string FullName { get; set; }
+        public AddressViewModel Address { get; set; }
+        public string PhoneNumber { get; set; }
+    }
+
+    public class AddressViewModel
+    {
+        public string Addr { get; set; }
+        public bool IsBusinessAddress { get; set; }
+    }
+
+    
+
     [ApiController]
     [Route("[controller]")]
     public class ContactController : ControllerBase
@@ -55,6 +72,42 @@ namespace PhoneAddressBookAPI.Controllers
 
             return Ok(response.ToString());
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateContact([FromBody] ContactViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+        
+            var contact = new Contacts { FullName = model.FullName };
+            var address = new Addresses { Addr = model.Address.Addr, IsBusinessAddress = model.Address.IsBusinessAddress };
+            
+            _context.Contacts.Add(contact);
+            _context.Addresses.Add(address);
+            
+            await _context.SaveChangesAsync(); // Save changes to the database to obtain Ids
+            
+            var contactAddress = new ContactAddresses 
+            {
+                ContactId = contact.Id, // Assuming contact has been added to the database and has an assigned Id
+                AddressId = address.Id // Assuming address has been added to the database and has an assigned Id
+            };
+
+            _context.ContactAddresses.Add(contactAddress);
+            
+            await _context.SaveChangesAsync();
+            var phone = new PhoneNum { PhoneNumber = model.PhoneNumber, AddressId = address.Id }; // Assign AddressId
+            _context.PhoneNum.Add(phone);
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+            
+            return Ok("Contact created successfully");
+            
+        }
+
+
 
         // [HttpPost]
         // public IActionResult Post(Contacts contact)
